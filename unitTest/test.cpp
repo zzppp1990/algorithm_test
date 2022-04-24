@@ -1,8 +1,7 @@
 /*
 * 单元测试
 */
-#define CATCH_CONFIG_MAIN
-#include "catch.hpp"
+#include <catch.hpp>
 #include <CPathNode.h>
 #include <stdexcept>
 
@@ -15,15 +14,11 @@ void test(int n)
     "Not the answer");
 }
 
-TEST_CASE("My first test", "[my]")
+TEST_CASE("CPathNode test", "[CPathNode]")
 {
-  INFO("Testing");
-  CHECK(1 + 1 == 2);
-  CHECK_THROWS_AS(
-    test(41), std::runtime_error);
-  CHECK_NOTHROW(test(42));
+  INFO("CPathNode test");
+  CPathNode t_oPathNode;
+  CHECK(t_oPathNode.m_vecChildPathNode.size() == 1);
 
-  int expected = 5;
-  CHECK(2 + 2 == expected);
 }
 

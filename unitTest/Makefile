@@ -6,12 +6,14 @@ alldep := $(allobjcpp:.cpp=.d)
 CXX := g++
 
 THE_INCLUDE      := -I./  \
-                   -I../pathTreelib
+                   -I../pathTreelib \
+                   -I../catch2lib
 
 THE_LIBPATH      = -L./  \
-                   -L../pathTreelib
+                   -L../pathTreelib \
+                   -L../catch2lib
 
-THE_LIB          := -lPathTree
+THE_LIB          := -lPathTree -lCatch2
 
 CXXFLAGS := -g ${THE_INCLUDE}
 LDLIB    := ${THE_LIBPATH} ${THE_LIB}
