@@ -1,15 +1,15 @@
 # 如果是.c后缀,需要将allobjcpp换成allobjc
-target := testLongestPath
+target := unitTestLongestPath
 allobjcpp := $(shell ls *.cpp)
 allobj := $(allobjcpp:.cpp=.o)
 alldep := $(allobjcpp:.cpp=.d)
 CXX := g++
 
 THE_INCLUDE      := -I./  \
-                   -I./pathTreelib
+                   -I../pathTreelib
 
 THE_LIBPATH      = -L./  \
-                   -L./pathTreelib
+                   -L../pathTreelib
 
 THE_LIB          := -lPathTree
 

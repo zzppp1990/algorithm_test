@@ -3,6 +3,7 @@
 */
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
+#include <CPathNode.h>
 #include <stdexcept>
 
 void test(int n)
@@ -26,6 +27,3 @@ TEST_CASE("My first test", "[my]")
   CHECK(2 + 2 == expected);
 }
 
-TEST_CASE("A null test", "[null]")
-{
-}
