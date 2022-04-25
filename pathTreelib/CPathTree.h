@@ -2,13 +2,7 @@
 #define _CPATHTREE_H_
 
 #include "CPathNode.h"
-
-class CStrategy {
-public:
-    virtual ~CStrategy() {}
-    virtual int getFileAbsPath() = 0;
-    virtual void Init(std::string input) = 0;
-};
+#include "CStrategy.h"
 
 class CPathTree : public CStrategy{
 public:
@@ -39,15 +33,6 @@ public:
     void getFileAbsPath(CPathNode& node, std::string filePathStr);
     int  getFileAbsPath() override;
 };
-
-class CEasyStrategy : public CStrategy {
-public:
-    std::string m_sInputStr;
-public:
-    virtual int getFileAbsPath() override;
-    virtual void Init(std::string input) override;
-};
-
 
 
 #endif //_CPATHTREE_H_

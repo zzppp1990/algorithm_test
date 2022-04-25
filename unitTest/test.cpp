@@ -6,6 +6,7 @@
 #include <catch.hpp>
 #include <CPathNode.h>
 #include <CPathTree.h>
+#include <CEasyStrategy.h>
 
 class Solution {
 public:
