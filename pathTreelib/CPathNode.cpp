@@ -1,7 +1,7 @@
 #include "CPathNode.h"
 
-CPathNode::CPathNode () : m_enNodeType(DIR_TYPE),m_sNodeName(""),
-                          m_iNodePathDepth(0),m_poParentPathNode(nullptr) {
+CPathNode::CPathNode () : m_enNodeType(FILE_TYPE),m_sNodeName(""),
+                          m_iNodePathDepth(-1),m_poParentPathNode(nullptr) {
         m_vecChildPathNode.clear();
 }
 
