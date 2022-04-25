@@ -33,5 +33,5 @@ $(target): $(allobj)
 	$(CXX) -o $@  $^ $(LDLIB)
 
 .POHONY clean:
-	rm *.o *.d $(target) 
+	rm -rf *.o *.d $(target) 
 

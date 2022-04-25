@@ -21,5 +21,5 @@ $(target): $(allobj)
 	$(AR) -o $@  $^
 
 .POHONY clean:
-	rm *.o *.d $(target) 
+	rm -rf *.o *.d $(target) 
 
