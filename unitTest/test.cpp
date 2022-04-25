@@ -9,30 +9,19 @@
 
 class Solution {
 public:
+    CStrategy* m_poStrategy;
+public:
+    void setStrategy(CStrategy* in_strategy) {
+        m_poStrategy = in_strategy;
+    }
     
     int lengthLongestPath(std::string input) {
-        
-        CPathTree t_oPathTree(input);
-        t_oPathTree.InitPathTree();
-        t_oPathTree.printPathTree(t_oPathTree.m_oRoot);
-        
-        std::string filePathStr = "";
-        t_oPathTree.getFileAbsPath(t_oPathTree.m_oRoot, filePathStr);
-        std::cout << "---------- longest length is " << t_oPathTree.m_iLongestLength << std::endl;
-        return t_oPathTree.m_iLongestLength;
+        m_poStrategy->Init(input);
+        int len = m_poStrategy->getFileAbsPath();
+        std::cout << "---------- longest length is " << len << std::endl;
+        return len;
     }
 };
-
-
-
-void test(int n)
-{
-  if (n == 42) {
-    return;
-  }
-  throw std::runtime_error(
-    "Not the answer");
-}
 
 /*CPathNode类构造函数测试*/
 TEST_CASE("CPathNode test", "[1]")
@@ -90,10 +79,33 @@ TEST_CASE("CPathTree test getNodeType", "[my]")
 }
 
 /*Solution::lengthLongestPath 函数测试*/
-TEST_CASE("Solution test lengthLongestPath", "[my]")
+TEST_CASE("Solution test lengthLongestPath pathTree strategy", "[my]")
 {
-  INFO("Solution test lengthLongestPath");
+  INFO("Solution test lengthLongestPath pathTree strategy");
+  CStrategy* t_poStrategy1 = new CPathTree;
+  
   Solution s;
+  s.setStrategy(t_poStrategy1);
+  int ret = s.lengthLongestPath("file1.txt\nfile2.txt\nlongfile.txt");
+  CHECK(ret == 12);
+
+  ret = s.lengthLongestPath("dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext");
+  CHECK(ret == 32);
+
+  ret = s.lengthLongestPath("a");
+  CHECK(ret == 0);
+
+  ret = s.lengthLongestPath("dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext");
+  CHECK(ret == 20);
+}
+
+TEST_CASE("Solution test lengthLongestPath easy strategy", "[my]")
+{
+  INFO("Solution test lengthLongestPath easy strategy");
+  CStrategy* t_poStrategy2 = new CEasyStrategy;
+  
+  Solution s;
+  s.setStrategy(t_poStrategy2);
   int ret = s.lengthLongestPath("file1.txt\nfile2.txt\nlongfile.txt");
   CHECK(ret == 12);
 

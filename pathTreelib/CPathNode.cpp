@@ -9,7 +9,6 @@ CPathNode::~CPathNode() {
 
 }
 
-
 std::ostream& operator<<(std::ostream& os, CPathNode& oPathNode) {
     return os << "NodeName = " << oPathNode.m_sNodeName 
               << "\t NodeType = " << oPathNode.m_enNodeType

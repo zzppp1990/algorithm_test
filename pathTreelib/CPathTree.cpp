@@ -1,4 +1,5 @@
 #include "CPathTree.h"
+#include <sstream>
 
 CPathTree::CPathTree(std::string str) : m_sInputStr(str),m_iLongestLength(0) {}
 
@@ -95,10 +96,13 @@ void CPathTree::parseTreeNode( int iCurrentPathDepth,std::string& sRemainInputSt
 }
 
 /*初始化整个树*/
-void CPathTree::InitPathTree () {
+void CPathTree::Init (std::string input) {
     std::string t_sRemainStr;
     int iCurrentDepth = 0;
+    m_sInputStr = input;
     t_sRemainStr = m_sInputStr;
+    m_iLongestLength = 0;
+    m_oRoot.m_vecChildPathNode.clear();
 
     std::string fullstr = "\n";
     fullstr += t_sRemainStr;
@@ -138,4 +142,35 @@ void CPathTree::getFileAbsPath(CPathNode& node, std::string filePathStr) {
         getFileAbsPath ( *it, filePathStr);
     }
 }
+
+int CPathTree::getFileAbsPath() {
+    std::string filePathStr = "";
+    getFileAbsPath(m_oRoot, filePathStr);
+    return m_iLongestLength;
+}
+
+void CEasyStrategy::Init(std::string input) {
+    m_sInputStr = input;
+}
+
+int CEasyStrategy::getFileAbsPath() {
+    std::istringstream iss(m_sInputStr);
+    std::vector<std::string> dirs;
+    std::string str;
+    while (getline(iss, str)) {
+        dirs.push_back(str);
+    }
+    std::vector<int> pathLen(dirs.size()+1,0);
+    int maxLen = 0;
+    for (const std::string& s : dirs) {
+        int i = 0;
+        while (i < s.size() && s[i] == '\t') ++i;
+        pathLen[i + 1] = pathLen[i] + s.size() - i+1;
+        if (s.find('.') != std::string::npos) {
+            maxLen = std::max(maxLen, pathLen[i + 1] - 1);
+        }
+    }
+    return maxLen;
+}
+
 
