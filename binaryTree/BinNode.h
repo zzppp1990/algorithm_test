@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <time.h>
+#include <algorithm>
+#include <stack>
 
 #define BinNodePosi(T) BinNode<T>*
 #define stature(p) ((p) ? (p)->height : -1)
@@ -45,7 +48,7 @@ template <typename T> struct BinNode {
     }
 
     void visit(T const& e) {
-        std::cout << e << std::endl;
+        std::cout << e << ' ';
     }
     //子树层次遍历
     //template <typename VST> void travLevel( VST&) ;
@@ -59,16 +62,46 @@ template <typename T> struct BinNode {
         travPre_R( x->rc);
     }
 
+    static void visitAlongLeftBranch(BinNodePosi(T) x, std::stack<BinNodePosi(T)>& S) {
+        while(x) {
+            x->visit(x->data);
+            S.push(x->rc);
+            x = x->lc;
+        }
+    }
+    void travPre_I2 (BinNodePosi(T) x) {
+        std::stack<BinNodePosi(T)> S;
+        while (1) {
+            visitAlongLeftBranch(x, S);
+            if(S.empty())
+                break;
+            x = S.top();
+            S.pop();
+        }
+    }
+
     void travPre() {
-        switch( rand() % 5) {
-            case 1: travPre_R(this); break;
-            default: travPre_R(this); break;
+        switch( rand() % 2) {
+            case 1:
+                std::cout << "recursive: ";
+                travPre_R(this); break;
+            default:
+                std::cout << "iteratoration: ";
+                travPre_I2(this); break;
         }
     }
     //子树中序遍历
     //template <typename VST> void travIn( VST&) ;
-    void travIn() {
+    void travIn_R(BinNodePosi(T) x) {
+        if(!x)
+            return;
 
+        travIn_R(x->lc);
+        visit(x->data);
+        travIn_R(x->rc);
+    }
+    void travIn() {
+        travIn_R(this);
     }
     //子树后序遍历
     //template <typename VST> void travPost( VST&) ;
